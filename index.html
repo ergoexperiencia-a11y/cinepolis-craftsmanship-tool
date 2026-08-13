@@ -133,16 +133,6 @@
 </head>
 <body>
 
-<div id="pantalla-login" class="device-screen" style="display: flex; flex-direction: column; justify-content: center; padding: 20px;">
-    <h2 style="color: #0b1540; text-align: center; margin-bottom: 30px;">Cinépolis Craftsmanship</h2>
-    <input type="email" id="login-email" class="input-gray" placeholder="Email" style="margin-bottom: 15px;">
-    <input type="password" id="login-password" class="input-gray" placeholder="Password" style="margin-bottom: 20px;">
-    <button class="btn-black" onclick="iniciarSesion()" style="width: 100%;">Entrar</button>
-    <p id="login-error" style="color: #c0392b; font-size: 12px; text-align: center; margin-top: 15px; display: none; font-weight: bold;">Credenciales incorrectas.</p>
-</div>
-
-<div id="pantalla-menu" style="display: none;">
-
     <div id="loading-overlay">
         <div class="spinner"></div>
         <h2 style="margin:0;">Ensamblando Reporte PDF...</h2>
@@ -802,7 +792,6 @@ onclick="guardarLoteFotosGenerales(this)">Guardar</button></div>
     </script>
 
     <script type="module">
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy, deleteDoc, updateDoc, doc, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
@@ -818,7 +807,6 @@ onclick="guardarLoteFotosGenerales(this)">Guardar</button></div>
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
         const storage = getStorage(app); 
 
         window.estadoApp = { proyectoId: null, proyectoNombre: "", productoNombre: "" };
@@ -1366,22 +1354,6 @@ onclick="guardarLoteFotosGenerales(this)">Guardar</button></div>
                 document.getElementById('loading-overlay').style.display = 'none';
             }
         };
-window.iniciarSesion = async function() {
-    const email = document.getElementById('login-email').value;
-    const pass = document.getElementById('login-password').value;
-    const errorMsg = document.getElementById('login-error');
-
-    try {
-        await signInWithEmailAndPassword(auth, email, pass);
-        
-        // CORRECCIÓN: Usamos classList para mantener tu diseño Flexbox intacto
-        document.getElementById('pantalla-login').classList.remove('active');
-        document.getElementById('pantalla-menu').classList.add('active');
-        
-    } catch(error) {
-        errorMsg.style.display = 'block';
-    }
-};    </script>
-</div>
+    </script>
 </body>
 </html>
