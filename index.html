@@ -12,7 +12,7 @@
     <style>
         /* ================= ESTILOS GLOBALES ================= */
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f0f0f0; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .device-screen { width: 100%; max-width: 390px; height: 800px; background-color: #ffffff; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; position: relative; display: none; flex-direction: column; border: 6px solid #e0e0e0; }
+         .device-screen { width: 100%; max-width: 390px; height: 95vh; max-height: 800px; background-color: #ffffff; border-radius: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); overflow: hidden; position: relative; display: none; flex-direction: column; border: 6px solid #e0e0e0; box-sizing: border-box; }        
         .device-screen.active { display: flex; }
         .header { background-color: #0b1540; color: white; display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; margin: 0 15px; flex-shrink: 0; }
         .header .logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
@@ -1373,12 +1373,15 @@ onclick="guardarLoteFotosGenerales(this)">Guardar</button></div>
             const errorMsg = document.getElementById('login-error');
 
             try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                
-                document.getElementById('pantalla-login').classList.remove('active');
-                document.getElementById('app-principal').style.display = 'block';
-                
-            } catch(error) {
+        await signInWithEmailAndPassword(auth, email, pass);
+        
+        // 1. Ocultamos el login quitando su clase active
+        document.getElementById('pantalla-login').classList.remove('active');
+        
+        // 2. CORRECCIÓN: Usamos 'contents' en lugar de 'block' para no romper el diseño
+        document.getElementById('app-principal').style.display = 'contents';
+        
+    } catch(error) {
                 console.error("Detalle del error:", error);
                 errorMsg.innerText = "Error: " + error.message; 
                 errorMsg.style.display = 'block';
