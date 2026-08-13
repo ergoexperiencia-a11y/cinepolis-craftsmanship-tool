@@ -6,13 +6,13 @@ window.iniciarSesion = async function() {
     try {
         await signInWithEmailAndPassword(auth, email, pass);
         
-        // 1. Ocultamos el login quitando su clase active
         document.getElementById('pantalla-login').classList.remove('active');
-        
-        // 2. Mostramos el gran contenedor de la app (la pantalla Home se verá por defecto)
         document.getElementById('app-principal').style.display = 'block';
         
     } catch(error) {
+        // Mostramos el error exacto de Firebase en la pantalla y en la consola
+        console.error("Detalle del error:", error);
+        errorMsg.innerText = "Error: " + error.message; 
         errorMsg.style.display = 'block';
     }
 };
